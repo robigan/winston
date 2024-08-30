@@ -46,17 +46,10 @@ class CustomSceneDelegate: UIResponder, UIWindowSceneDelegate {
   }
 }
 
-public func setAudioToMixWithOthers(_ activateplayback: Bool = false) {
-	do {
-		let audioSession = AVAudioSession.sharedInstance()
-		if (activateplayback == true) {
-			try audioSession.setCategory(.playback, mode: AVAudioSession.Mode.default, options: [.mixWithOthers])
-			try audioSession.setActive(true)
-		} else {
-			try audioSession.setCategory(.ambient, options: [.mixWithOthers])
-			try audioSession.setActive(false, options: AVAudioSession.SetActiveOptions.notifyOthersOnDeactivation)
-		}
-	} catch {
-		print("Error setting audio session to mix with others")
-	}
+public func setAudioToMixWithOthers() {
+    do {
+        try AVAudioSession.sharedInstance().setCategory(.playback, options: .mixWithOthers)
+    } catch {
+        print("Error setting audio session: \(error)")
+    }
 }
